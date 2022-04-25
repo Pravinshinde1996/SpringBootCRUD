@@ -66,4 +66,34 @@ public class EmpolyeeServiceImpl implements EmployeeService {
 		return returnValue;
 	}
 
+	@Override
+	public String getEmployeeDataByEmpName(String empName) throws JsonProcessingException {
+		String returnValue=null;
+		ArrayNode arrayOfEmpData=MAPPER.createArrayNode();
+		ObjectNode response=MAPPER.createObjectNode();
+		List<Empolyee> list=this.empolyeeRepository.findByEmpNameIgnoreCase(empName);
+		
+		if(list!=null && list.size()>0) {
+			for (Empolyee empolyee : list) {
+				ObjectNode employeeObj=MAPPER.createObjectNode();
+				employeeObj.put("empName", empolyee.getEmpName());
+				employeeObj.put("empAge", empolyee.getEmpAge());
+				employeeObj.put("empSal", empolyee.getEmpSal());
+				employeeObj.put("empDept", empolyee.getEmpDept());
+				employeeObj.put("empEmailid", empolyee.getEmpEmailid());
+				employeeObj.put("empPhno", empolyee.getEmpPhno());
+				arrayOfEmpData.add(employeeObj);
+			}
+			response.put("responseStatus", "200");
+			response.set("responseMsg", arrayOfEmpData);
+		}else {
+			response.put("responseStatus", "200");
+			response.put("responseMsg", "No data found");
+		}
+		
+		returnValue=MAPPER.writeValueAsString(response);
+		
+		return returnValue;
+	}
+
 }

@@ -12,4 +12,6 @@ public interface EmployeeService {
 	//Get Operation
 	String getEmployeeData() throws JsonProcessingException;
 	
+	//Find Employee name
+	String getEmployeeDataByEmpName(String empName) throws JsonProcessingException;
 }

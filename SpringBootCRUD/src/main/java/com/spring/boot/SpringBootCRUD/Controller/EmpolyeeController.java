@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,6 +28,13 @@ public class EmpolyeeController {
 	String saveEmployeeData() throws JsonProcessingException {
 		String returnValue=null;
 		returnValue=this.employeeService.getEmployeeData();
+		return returnValue;
+	}
+	
+	@GetMapping("/getEmployeeDataByEmpName")
+	String getEmployeeDataByEmpName(@RequestParam(name="empName") String empName) throws JsonProcessingException {
+		String returnValue=null;
+		returnValue=this.employeeService.getEmployeeDataByEmpName(empName);
 		return returnValue;
 	}
 	
